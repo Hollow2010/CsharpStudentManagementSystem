@@ -1,49 +1,45 @@
-using system;
-using System.Collections.Generic
+using System;
 
-namespace studentmanager
+namespace StudentManagementSystem
 {
-     public class Student
+    // Inheritance: Student inherits all fields, properties, and methods from Person
+    internal class Student : Person
     {
-        // 1. Private Fields (Encapsulated state variables hidden from external view)
-1
+        // Private Fields unique to Student
         private int _id;
-        private string _name;
         private double _marks;
-        
-        // 2. Public Properties (Access control gates managing security logic)
-        public int Id 
-        { 
-            get { return _id; } 
+
+        // Public Properties
+        public int Id
+        {
+            get { return _id; } // Read-Only Safety: Immutable identity after construction
         }
-        public string Name 
-        { 
-            get { return _name; } 
-            set { _name = value; } 
-        }
-        public double Marks 
-        { 
-            get { return _marks; } 
-            set 
-            { 
+
+        public double Marks
+        {
+            get { return _marks; }
+            set
+            {
                 // Data Validation Interceptor
                 if (value >= 0 && value <= 100)
                 {
-                    _marks = value; 
+                    _marks = value;
                 }
-            } 
+            }
         }
-        // 3. Constructor Contract (Mandatory instance initialization engine)
-        public Student(int id, string name, double marks)
+
+        // Constructor Contract passing the name to the base Person constructor
+        public Student(int id, string name, double marks) : base(name)
         {
             _id = id;
-            _name = name;
             _marks = marks;
         }
-        // 4. Instance Behavior Method
-        public void DisplayDetails()
+
+        // Polymorphism: Overriding the base class method to provide specialized behavior
+        public override void DisplayDetails()
         {
-            Console.WriteLine($"ID: {_id} | Name: {_name} | Marks: {_marks}%");
+            base.DisplayDetails(); // Invokes base Person display logic
+            Console.WriteLine($" | ID: {_id} | Marks: {_marks}%");
         }
     }
 }
